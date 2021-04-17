@@ -1,9 +1,6 @@
 from .Pages.product_page import ProductPage
 
 
-# pytest -v -s --tb=line --language=en test_product_page1.py
-
-
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019"
     page = ProductPage(browser, link)
