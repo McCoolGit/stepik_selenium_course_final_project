@@ -2,7 +2,7 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-from .locators import BasePageLocators
+from .locators import BasePageLocators, BasketPageLocators
 import math
 import allure
 from allure_commons.types import AttachmentType
@@ -66,3 +66,13 @@ class BasePage():
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")
+
+    def go_to_basket_page(self):
+        link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
+        link.click()
+
+    def is_basket_empty(self):
+        assert self.browser.find_element(*BasketPageLocators.BASKET_STATE), "Basket is not empty"
+        #"Your basket is empty" in self.browser.find_element(*BasketPageLocators.BASKET_STATE).text()
+
+

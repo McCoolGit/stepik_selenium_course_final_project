@@ -1,4 +1,5 @@
-from .Pages.locators import ProductPageLocators
+from .Pages.basket_page import BasketPage
+from .Pages.locators import ProductPageLocators, BasePageLocators, BasketPageLocators
 from .Pages.login_page import LoginPage
 from .Pages.main_page import MainPage
 from .Pages.product_page import ProductPage
@@ -53,3 +54,20 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page.open()
     page.go_to_login_page()
     page.should_be_login_page()
+
+@pytest.mark.new
+def test_guest_can_go_to_basket_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = BasketPage(browser, link)
+    page.open()
+    page.go_to_basket_page()
+    basket_page = BasketPage(browser, browser.current_url)
+    basket_page.should_be_basket_page()
+
+@pytest.mark.new
+def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = BasketPage(browser, link)
+    page.open()
+    page.go_to_basket_page()
+    page.is_basket_empty()
